@@ -1,0 +1,134 @@
+import { useState, useEffect } from 'react';
+import { database } from '../config/firebase';
+import { ref, onValue, update, set, get } from 'firebase/database';
+
+export const useChildData = (childId) => {
+  const [data, setData] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    if (!childId) {
+      setLoading(false);
+      return;
+    }
+
+    const childRef = ref(database, `users/childs/${childId}`);
+    const unsubscribe = onValue(
+      childRef,
+      (snapshot) => {
+        if (snapshot.exists()) {
+          setData(snapshot.val());
+        }
+        setLoading(false);
+      },
+      (error) => {
+        setError(error);
+        setLoading(false);
+      }
+    );
+
+    return unsubscribe;
+  }, [childId]);
+
+  return { data, loading, error };
+};
+
+export const useChildrenList = (parentEmail) => {
+  const [children, setChildren] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    if (!parentEmail) {
+      setLoading(false);
+      return;
+    }
+
+    const childsRef = ref(database, 'users/childs');
+    const unsubscribe = onValue(
+      childsRef,
+      (snapshot) => {
+        if (snapshot.exists()) {
+          const allChildren = snapshot.val();
+          const filtered = Object.keys(allChildren)
+            .filter((key) => {
+              const childParentEmail = allChildren[key].parentEmail;
+              const matches = childParentEmail === parentEmail;
+              return matches;
+            })
+            .map((key) => ({
+              id: key,
+              ...allChildren[key],
+            }));
+          setChildren(filtered);
+        } else {
+          setChildren([]);
+        }
+        setLoading(false);
+      },
+      (error) => {
+        setError(error);
+        setLoading(false);
+      }
+    );
+
+    return unsubscribe;
+  }, [parentEmail]);
+
+  return { children, loading, error };
+};
+
+export const updateBlockedApp = async (childId, appIndex, blocked) => {
+  try {
+    // Update just the blocked field of the specific app
+    const appRef = ref(database, `users/childs/${childId}/apps/${appIndex}`);
+    await update(appRef, { blocked });
+    return { success: true };
+  } catch (error) {
+    console.error('Error updating blocked app:', error);
+    return { success: false, error };
+  }
+};
+
+const getAppData = async (childId, appIndex) => {
+  try {
+    const appRef = ref(database, `users/childs/${childId}/apps/${appIndex}`);
+    const snapshot = await get(appRef);
+    return snapshot.val() || {};
+  } catch (error) {
+    return {};
+  }
+};
+
+export const toggleDeviceLock = async (childId, locked) => {
+  try {
+    const deviceRef = ref(database, `users/childs/${childId}`);
+    await update(deviceRef, { deviceLocked: locked });
+    return { success: true };
+  } catch (error) {
+    return { success: false, error };
+  }
+};
+
+export const requestLocationRefresh = async (childId) => {
+  try {
+    const locationRef = ref(database, `users/childs/${childId}`);
+    await update(locationRef, { requestLocationRefresh: true, lastLocationRefresh: Date.now() });
+    return { success: true };
+  } catch (error) {
+    return { success: false, error };
+  }
+};
+
+// Parent-controlled helper: set or clear the `appDeleted` flag on the child record.
+export const setAppDeleted = async (childId, deleted) => {
+  try {
+    const childRef = ref(database, `users/childs/${childId}`);
+    await update(childRef, { appDeleted: deleted });
+    return { success: true };
+  } catch (error) {
+    console.error('Error setting appDeleted flag:', error);
+    return { success: false, error };
+  }
+};
