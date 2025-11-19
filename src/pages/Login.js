@@ -12,7 +12,7 @@ import {
 } from '@mui/material';
 import { signInWithEmailAndPassword, sendPasswordResetEmail } from 'firebase/auth';
 import { auth } from '../config/firebase';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 
 const Login = () => {
   const [email, setEmail] = useState('');
@@ -23,6 +23,8 @@ const Login = () => {
   const [resetEmail, setResetEmail] = useState('');
   const [resetSuccess, setResetSuccess] = useState('');
   const navigate = useNavigate();
+  const location = useLocation();
+  const forwardedMessage = location.state?.message || '';
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -69,10 +71,11 @@ const Login = () => {
       >
         <Paper elevation={3} sx={{ p: 4, width: '100%' }}>
           <Typography variant="h4" align="center" mb={3} sx={{ fontWeight: 'bold' }}>
-            Parental Dashboard
+            AegistNet
           </Typography>
 
           {error && <Alert severity="error" sx={{ mb: 2 }}>{error}</Alert>}
+          {forwardedMessage && <Alert severity="success" sx={{ mb: 2 }}>{forwardedMessage}</Alert>}
           {resetSuccess && <Alert severity="success" sx={{ mb: 2 }}>{resetSuccess}</Alert>}
 
           {!resetMode ? (
@@ -151,6 +154,15 @@ const Login = () => {
               >
                 Forgot Password?
               </Link>
+              <Box mt={1}>
+                <Link
+                  component="button"
+                  variant="body2"
+                  onClick={() => navigate('/register')}
+                >
+                  Create an account
+                </Link>
+              </Box>
             </Box>
           )}
         </Paper>

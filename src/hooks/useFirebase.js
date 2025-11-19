@@ -132,3 +132,47 @@ export const setAppDeleted = async (childId, deleted) => {
     return { success: false, error };
   }
 };
+
+// Update child's name
+export const updateChildName = async (childId, newName) => {
+  try {
+    const childRef = ref(database, `users/childs/${childId}`);
+    await update(childRef, { name: newName });
+    return { success: true };
+  } catch (error) {
+    console.error('Error updating child name:', error);
+    return { success: false, error };
+  }
+};
+
+export const useParentProfile = (parentUid) => {
+  const [profile, setProfile] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    if (!parentUid) {
+      setLoading(false);
+      return;
+    }
+
+    const parentRef = ref(database, `users/parents/${parentUid}`);
+    const unsubscribe = onValue(
+      parentRef,
+      (snapshot) => {
+        if (snapshot.exists()) {
+          setProfile(snapshot.val());
+        }
+        setLoading(false);
+      },
+      (error) => {
+        setError(error);
+        setLoading(false);
+      }
+    );
+
+    return unsubscribe;
+  }, [parentUid]);
+
+  return { profile, loading, error };
+};

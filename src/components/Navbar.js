@@ -43,7 +43,7 @@ const Navbar = () => {
           sx={{ flexGrow: 1, fontWeight: 'bold', cursor: 'pointer' }}
           onClick={() => navigate('/dashboard')}
         >
-          AegistNet Command Center
+          Parental Command Center
         </Typography>
 
         <IconButton color="inherit" onClick={toggleTheme} title="Toggle theme">

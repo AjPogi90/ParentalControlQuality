@@ -20,7 +20,7 @@ import {
   Paper,
 } from '@mui/material';
 import { useParams, useNavigate, useSearchParams } from 'react-router-dom';
-import { useChildData, toggleDeviceLock, updateBlockedApp, requestLocationRefresh } from '../hooks/useFirebase';
+import { useChildData, toggleDeviceLock, updateBlockedApp, requestLocationRefresh, updateChildName } from '../hooks/useFirebase';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import RefreshIcon from '@mui/icons-material/Refresh';
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
@@ -49,6 +49,8 @@ const ChildDetails = () => {
   const [appSearch, setAppSearch] = useState('');
   const [loadingAction, setLoadingAction] = useState(false);
   const [successMessage, setSuccessMessage] = useState('');
+  const [editingName, setEditingName] = useState(false);
+  const [tempName, setTempName] = useState('');
 
   const { data: child, loading, error } = useChildData(childId);
 
@@ -93,6 +95,35 @@ const ChildDetails = () => {
       setTimeout(() => setSuccessMessage(''), 3000);
     }
     setLoadingAction(false);
+  };
+
+  const handleEditName = () => {
+    setEditingName(true);
+    setTempName(child.name || '');
+  };
+
+  const handleSaveName = async () => {
+    if (!tempName.trim()) {
+      setSuccessMessage('Name cannot be empty');
+      setTimeout(() => setSuccessMessage(''), 3000);
+      return;
+    }
+    setLoadingAction(true);
+    const result = await updateChildName(childId, tempName.trim());
+    setLoadingAction(false);
+    if (result.success) {
+      setEditingName(false);
+      setSuccessMessage('Child name updated');
+      setTimeout(() => setSuccessMessage(''), 3000);
+    } else {
+      setSuccessMessage(`Failed to update name: ${result.error?.message || 'Unknown error'}`);
+      setTimeout(() => setSuccessMessage(''), 3000);
+    }
+  };
+
+  const handleCancelEdit = () => {
+    setEditingName(false);
+    setTempName('');
   };
 
   if (loading) {
@@ -161,7 +192,38 @@ const ChildDetails = () => {
             <Stack spacing={2}>
               <Box sx={{ p: 2, bgcolor: 'action.hover', borderRadius: 1 }}>
                 <Typography variant="body2" color="textSecondary" sx={{ mb: 0.5 }}>Child Name</Typography>
-                <Typography variant="h6" sx={{ fontWeight: 600 }}>{child.name}</Typography>
+                {editingName ? (
+                  <Stack direction="row" gap={1} alignItems="center">
+                    <TextField
+                      value={tempName}
+                      onChange={(e) => setTempName(e.target.value)}
+                      size="small"
+                      fullWidth
+                      disabled={loadingAction}
+                    />
+                    <Button
+                      variant="contained"
+                      size="small"
+                      onClick={handleSaveName}
+                      disabled={loadingAction}
+                    >
+                      Save
+                    </Button>
+                    <Button
+                      variant="outlined"
+                      size="small"
+                      onClick={handleCancelEdit}
+                      disabled={loadingAction}
+                    >
+                      Cancel
+                    </Button>
+                  </Stack>
+                ) : (
+                  <Stack direction="row" justifyContent="space-between" alignItems="center">
+                    <Typography variant="h6" sx={{ fontWeight: 600 }}>{child.name}</Typography>
+                    <Button size="small" onClick={handleEditName} disabled={loadingAction}>Edit</Button>
+                  </Stack>
+                )}
               </Box>
 
               <Box sx={{ p: 2, bgcolor: 'action.hover', borderRadius: 1 }}>

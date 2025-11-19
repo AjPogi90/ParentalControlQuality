@@ -8,13 +8,14 @@ import {
   Box,
 } from '@mui/material';
 import { useAuth } from '../contexts/AuthContext';
-import { useChildrenList } from '../hooks/useFirebase';
+import { useChildrenList, useParentProfile } from '../hooks/useFirebase';
 import ChildCard from '../components/ChildCard';
 import { useNavigate } from 'react-router-dom';
 
 const Dashboard = () => {
   const { user } = useAuth();
   const { children, loading, error } = useChildrenList(user?.email);
+  const { profile: parentProfile } = useParentProfile(user?.uid);
   const navigate = useNavigate();
 
   if (loading) {
@@ -29,7 +30,7 @@ const Dashboard = () => {
     <Container maxWidth="lg" sx={{ py: 4 }}>
       <Box mb={4}>
         <Typography variant="h4" sx={{ fontWeight: 'bold', mb: 1 }}>
-          Welcome Back, Parent!
+          Welcome Back, {parentProfile?.name || 'Parent'}!
         </Typography>
         <Typography variant="body1" color="textSecondary">
           Manage and monitor your children's devices below

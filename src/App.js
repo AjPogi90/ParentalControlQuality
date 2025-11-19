@@ -3,10 +3,12 @@ import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { AuthProvider } from './contexts/AuthContext';
 import { CustomThemeProvider } from './contexts/ThemeContext';
 import Login from './pages/Login';
+import Register from './pages/Register';
 import Dashboard from './pages/Dashboard';
 import ChildDetails from './pages/ChildDetails';
 import ProtectedRoute from './components/ProtectedRoute';
 import Navbar from './components/Navbar';
+import HomePage from './pages/HomePage';
 import { useAuth } from './contexts/AuthContext';
 import { Box } from '@mui/material';
 
@@ -30,7 +32,9 @@ function App() {
         <BrowserRouter>
           <AppLayout>
             <Routes>
+              <Route path="/" element={<HomePage />} />
               <Route path="/login" element={<Login />} />
+              <Route path="/register" element={<Register />} />
               <Route
                 path="/dashboard"
                 element={
@@ -47,7 +51,6 @@ function App() {
                   </ProtectedRoute>
                 }
               />
-              <Route path="/" element={<Navigate to="/dashboard" replace />} />
             </Routes>
           </AppLayout>
         </BrowserRouter>
