@@ -64,8 +64,7 @@ const Login = () => {
           <Box component="img" src="/HeaderLogoImage.png" alt="logo" onError={(e) => { e.target.onerror = null; e.target.src = '/HeaderLogo.png'; }} sx={{ width: 120, height: 'auto', display: 'block', mx: 'auto' }} />
         </Box>
 
-        <Typography variant="h5" align="center" mb={1} sx={{ fontWeight: 800, color: '#fff' }}>Parent Login</Typography>
-        <Typography variant="body2" sx={{ color: 'rgba(255,255,255,0.6)', mb: 2 }}>Welcome back! Please sign in to continue</Typography>
+       
 
         {error && <Alert severity="error" sx={{ mb: 2, bgcolor: 'rgba(255,0,0,0.08)', color: '#fff' }}>{error}</Alert>}
         {forwardedMessage && <Alert severity="success" sx={{ mb: 2, bgcolor: 'rgba(0,255,0,0.04)', color: '#fff' }}>{forwardedMessage}</Alert>}
@@ -73,13 +72,18 @@ const Login = () => {
 
         {!resetMode ? (
           <form onSubmit={handleLogin}>
+
+             <Typography variant="h5" align="center" mb={1} sx={{ fontWeight: 800, color: '#fff' }}>Parent Login</Typography>
+            <Typography variant="body2"  sx={{ color: 'rgba(255,255,255,0.6)', mb: 1, textAlign: 'center' }}>Welcome back! Please sign in to continue</Typography>
+
             <TextField fullWidth label="Email" type="email" value={email} onChange={(e) => setEmail(e.target.value)} margin="normal" required disabled={loading} variant="filled" sx={{ '& .MuiFilledInput-root': { bgcolor: '#0f0f0f', borderRadius: 1 }, '& .MuiInputLabel-root': { color: 'rgba(255,255,255,0.7)' } }} InputProps={{ sx: { color: '#fff' } }} />
             <TextField fullWidth label="Password" type="password" value={password} onChange={(e) => setPassword(e.target.value)} margin="normal" required disabled={loading} variant="filled" sx={{ '& .MuiFilledInput-root': { bgcolor: '#0f0f0f', borderRadius: 1 }, '& .MuiInputLabel-root': { color: 'rgba(255,255,255,0.7)' } }} InputProps={{ sx: { color: '#fff' } }} />
             <Button type="submit" fullWidth variant="contained" sx={{ mt: 3, mb: 2, borderRadius: 1 }} disabled={loading} style={{ backgroundColor: '#EE791A', color: '#fff' }}>{loading ? <CircularProgress size={24} sx={{ color: '#fff' }} /> : 'Sign in'}</Button>
           </form>
         ) : (
           <form onSubmit={handlePasswordReset}>
-            <Typography variant="body2" sx={{ color: 'rgba(255,255,255,0.6)', mb: 1, textAlign: 'left' }}>Enter your email to receive a password reset link</Typography>
+            <Typography variant="h5" align="center" mb={1} sx={{ fontWeight: 800, color: '#fff' }}>Password Reset</Typography>
+            <Typography variant="body2"  sx={{ color: 'rgba(255,255,255,0.6)', mb: 1, textAlign: 'center' }}>Enter your email to receive a password reset link</Typography>
             <TextField fullWidth label="Email" type="email" value={resetEmail} onChange={(e) => setResetEmail(e.target.value)} margin="normal" required disabled={loading} variant="filled" sx={{ '& .MuiFilledInput-root': { bgcolor: '#0f0f0f', borderRadius: 1 }, '& .MuiInputLabel-root': { color: 'rgba(255,255,255,0.7)' } }} InputProps={{ sx: { color: '#fff' } }} />
             <Button type="submit" fullWidth variant="contained" sx={{ mt: 3, mb: 2 }} disabled={loading} style={{ backgroundColor: '#EE791A', color: '#fff' }}>{loading ? <CircularProgress size={24} sx={{ color: '#fff' }} /> : 'Send Reset Email'}</Button>
             <Button fullWidth variant="text" onClick={() => setResetMode(false)} disabled={loading} sx={{ color: '#6b46ff' }}>Back to Login</Button>

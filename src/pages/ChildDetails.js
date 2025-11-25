@@ -269,7 +269,7 @@ const ChildDetails = () => {
               disabled={loadingAction || child.deviceLocked}
               sx={{ fontWeight: 600 }}
             >
-              🔒 Emergency Lock
+               Emergency Lock
             </Button>
           </CardActions>
         </Card>
@@ -292,7 +292,7 @@ const ChildDetails = () => {
 
             {filteredApps.length === 0 ? (
               <Typography color="textSecondary" sx={{ textAlign: 'center', py: 4 }}>
-                {appSearch ? '❌ No apps match your search' : '📦 No apps found'}
+                {appSearch ? ' No apps match your search' : ' No apps found'}
               </Typography>
             ) : (
               <Grid container spacing={2}>
@@ -322,7 +322,7 @@ const ChildDetails = () => {
                             </Typography>
                             <Box mt={1}>
                               <Chip
-                                label={app.blocked ? '🚫 Blocked' : '✅ Allowed'}
+                                label={app.blocked ? ' Blocked' : ' Allowed'}
                                 color={app.blocked ? 'error' : 'success'}
                                 size="small"
                                 variant="filled"

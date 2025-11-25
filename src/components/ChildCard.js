@@ -10,12 +10,11 @@ import {
   Stack,
 } from '@mui/material';
 import { format } from 'date-fns';
+import { isOnline as isOnlineHelper, formatTimestamp } from '../utils/constants';
 
 const ChildCard = ({ child, onViewDetails, onViewApps, onViewLocation }) => {
-  const isOnline = child.lastUpdated && Date.now() - child.lastUpdated < 300000; // 5 minutes
-  const lastUpdatedTime = child.lastUpdated
-    ? format(new Date(child.lastUpdated), 'MMM d, HH:mm')
-    : 'Never';
+  const isOnline = isOnlineHelper(child.lastUpdated);
+  const lastUpdatedTime = child.lastUpdated ? formatTimestamp(child.lastUpdated) : 'Never';
 
   return (
     <Card sx={{ 
@@ -42,11 +41,11 @@ const ChildCard = ({ child, onViewDetails, onViewApps, onViewLocation }) => {
           </Box>
         </Box>
 
-        <Typography variant="body2" color="textSecondary" mb={1} sx={{ wordBreak: 'break-all' }}>
+        <Typography variant="body2" color="text.secondary" mb={1} sx={{ wordBreak: 'break-all' }}>
           📧 {child.email || 'N/A'}
         </Typography>
 
-        <Typography variant="caption" color="textSecondary" sx={{ display: 'block' }}>
+        <Typography variant="caption" color="text.secondary" sx={{ display: 'block' }}>
           ⏱️ Last updated: {lastUpdatedTime}
         </Typography>
 
