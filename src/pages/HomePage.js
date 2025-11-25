@@ -83,7 +83,7 @@ const HomePage = () => {
           display: 'flex',
           flexDirection: 'column',
           justifyContent: 'space-between',
-          bgcolor: highlighted ? '#5b4bd6' : '#fff',
+          bgcolor: highlighted ? '#c05905ff' : '#fff',
           color: highlighted ? '#fff' : 'inherit',
           p: 4,
         }}
@@ -117,13 +117,14 @@ const HomePage = () => {
               textTransform: 'none',
               fontWeight: 700,
               bgcolor: highlighted ? '#fff' : 'transparent',
-              color: highlighted ? '#5b4bd6' : '#5b4bd6',
-              borderColor: '#5b4bd6',
+              color: highlighted ? '#c05905ff' : '#c05905ff',
+              borderColor: '#c05905ff',
               '&:hover': {
-                bgcolor: highlighted ? '#f5f5f5' : 'rgba(91, 75, 214, 0.05)',
+                bgcolor: highlighted ? '#f5f5f5' : 'rgba(192, 89, 5, 0.05)',
               },
               mb: 2,
             }}
+            onClick={() => navigate('/register')}
           >
             Buy now
           </Button>
@@ -133,7 +134,7 @@ const HomePage = () => {
             fullWidth
             sx={{
               textTransform: 'none',
-              color: highlighted ? 'rgba(255,255,255,0.8)' : '#5b4bd6',
+              color: highlighted ? 'rgba(255,255,255,0.8)' : '#c05905ff',
             }}
           >
             See what's included
@@ -169,7 +170,7 @@ const HomePage = () => {
               fontSize: '0.95rem',
               px: 0,
               '&:hover': { bgcolor: 'transparent' },
-              borderBottom: productOpen ? '3px solid #ff6b6b' : 'none',
+              borderBottom: productOpen ? '3px solid #ffa66bff' : 'none',
               pb: productOpen ? '6px' : 0,
             }}
           >
@@ -189,7 +190,7 @@ const HomePage = () => {
               fontSize: '0.95rem',
               px: 0,
               '&:hover': { bgcolor: 'transparent' },
-              borderBottom: learnOpen ? '3px solid #25a08b' : 'none',
+              borderBottom: learnOpen ? '3px solid #c48510ff' : 'none',
               pb: learnOpen ? '6px' : 0,
             }}
           >
@@ -207,7 +208,7 @@ const HomePage = () => {
               fontSize: '0.95rem',
               px: 0,
               '&:hover': { bgcolor: 'transparent' },
-              borderBottom: supportOpen ? '3px solid #25a08b' : 'none',
+              borderBottom: supportOpen ? '3px solid #c05905ff' : 'none',
               pb: supportOpen ? '6px' : 0,
             }}
           >
@@ -232,31 +233,29 @@ const HomePage = () => {
               variant="contained"
               sx={{
                 textTransform: 'none',
-                bgcolor: '#ff6b6b',
+                bgcolor: '#EE791A',
                 color: '#fff',
-                '&:hover': { bgcolor: '#ff5a5a' },
+                '&:hover': { bgcolor: '#c05905ff' },
                 borderRadius: 2,
                 px: 3,
               }}
               onClick={() => navigate('/register')}
             >
-              TRY NOW
+              SIGN UP
             </Button>
           </Box>
         </Toolbar>
       </AppBar>
-
-      {/* Inline Mega Menu (pushes content down) */}
       {productOpen && (
         <Box sx={{ width: '100%', bgcolor: '#fff', boxShadow: '0 8px 32px rgba(0,0,0,0.08)', borderTop: '1px solid #eee' }}>
           <Container maxWidth="lg">
             <Box sx={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr 1fr' }}>
               <Box sx={{ p: 2.5, borderRight: '1px solid #f0f0f0' }}>
                 <Typography variant="subtitle2" sx={{ fontWeight: 700, mb: 1.5, display: 'flex', alignItems: 'center', gap: 1, fontSize: '1rem', color: '#000' }}>
-                  <span style={{ fontSize: '1.2rem' }}>❓</span> Why Qustodio
+                  <span style={{ fontSize: '1.2rem' }}></span> Why AegistNet
                 </Typography>
                 <Typography variant="body2" sx={{ color: '#555', mb: 2, lineHeight: 1.5, fontSize: '0.9rem' }}>
-                  Having the right tools to protect your kids' digital lives is more important than ever.
+                  Kids spend a lot of time on screens, and keeping them safe matters. This app uses real-time AI to filter explicit content and help you stay in control of what they see.
                 </Typography>
                 <Button color="primary" size="small" sx={{ textTransform: 'none', fontWeight: 600, p: 0, fontSize: '0.9rem' }}>
                   Discover more
@@ -264,10 +263,10 @@ const HomePage = () => {
               </Box>
               <Box sx={{ p: 2.5, borderRight: '1px solid #f0f0f0' }}>
                 <Typography variant="subtitle2" sx={{ fontWeight: 700, mb: 1.5, display: 'flex', alignItems: 'center', gap: 1, fontSize: '1rem', color: '#000' }}>
-                  <span style={{ fontSize: '1.2rem' }}>📋</span> Features
+                  <span style={{ fontSize: '1.2rem' }}></span> Features
                 </Typography>
                 <Typography variant="body2" sx={{ color: '#555', mb: 2, lineHeight: 1.5, fontSize: '0.9rem' }}>
-                  Balance screen time, filter content, and view activity reports in the way that suits your family.
+                 Lock apps when you need to, block inappropriate content automatically, track your child’s location, and review their activity in a way that fits your family’s routine.
                 </Typography>
                 <Button color="primary" size="small" sx={{ textTransform: 'none', fontWeight: 600, p: 0, fontSize: '0.9rem' }}>
                   View all features
@@ -275,10 +274,10 @@ const HomePage = () => {
               </Box>
               <Box sx={{ p: 2.5, borderRight: '1px solid #f0f0f0' }}>
                 <Typography variant="subtitle2" sx={{ fontWeight: 700, mb: 1.5, display: 'flex', alignItems: 'center', gap: 1, fontSize: '1rem', color: '#000' }}>
-                  <span style={{ fontSize: '1.2rem' }}>🚀</span> Get started
+                  <span style={{ fontSize: '1.2rem' }}></span> Get started
                 </Typography>
                 <Typography variant="body2" sx={{ color: '#555', mb: 2, lineHeight: 1.5, fontSize: '0.9rem' }}>
-                  Begin protecting and supervising your child within minutes.
+                  Set up takes only a few minutes. Create an account, download the app on child device, turn it on, and it starts monitoring and protecting right away.
                 </Typography>
                 <Button color="primary" size="small" sx={{ textTransform: 'none', fontWeight: 600, p: 0, fontSize: '0.9rem' }}>
                   Learn how
@@ -286,10 +285,10 @@ const HomePage = () => {
               </Box>
               <Box sx={{ p: 2.5 }}>
                 <Typography variant="subtitle2" sx={{ fontWeight: 700, mb: 1.5, display: 'flex', alignItems: 'center', gap: 1, fontSize: '1rem', color: '#000' }}>
-                  <span style={{ fontSize: '1.2rem' }}>⬇️</span> Downloads
+                  <span style={{ fontSize: '1.2rem' }}></span> Downloads
                 </Typography>
                 <Typography variant="body2" sx={{ color: '#555', mb: 2, lineHeight: 1.5, fontSize: '0.9rem' }}>
-                  Get Qustodio for every device, from smartphones and tablets to desktops, Chromebooks, and more.
+                  Available for Android 9.0+ devices. The app uses real-time screen analysis to monitor and filter harmful content as it appears. You can install it on your child’s phone or tablet 
                 </Typography>
                 <Button color="primary" size="small" sx={{ textTransform: 'none', fontWeight: 600, p: 0, fontSize: '0.9rem' }}>
                   Go to downloads
@@ -307,10 +306,10 @@ const HomePage = () => {
             <Box sx={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr 1fr' }}>
               <Box sx={{ p: 2.5, borderRight: '1px solid #f0f0f0' }}>
                 <Typography variant="subtitle2" sx={{ fontWeight: 700, mb: 1.5, display: 'flex', alignItems: 'center', gap: 1, fontSize: '1rem', color: '#000' }}>
-                  <span style={{ fontSize: '1.2rem' }}>📋</span> Product tips
+                  <span style={{ fontSize: '1.2rem' }}></span> Product tips
                 </Typography>
                 <Typography variant="body2" sx={{ color: '#555', mb: 2, lineHeight: 1.5, fontSize: '0.9rem' }}>
-                  The latest product updates and features plus handy how-tos to help you get the most out of Parental Control.
+                  Get the latest updates, new features, and simple guides that help you make the most of your AI Parental Control app.
                 </Typography>
                 <Button color="primary" size="small" sx={{ textTransform: 'none', fontWeight: 600, p: 0, fontSize: '0.9rem' }}>
                   Read product tips
@@ -318,10 +317,10 @@ const HomePage = () => {
               </Box>
               <Box sx={{ p: 2.5, borderRight: '1px solid #f0f0f0' }}>
                 <Typography variant="subtitle2" sx={{ fontWeight: 700, mb: 1.5, display: 'flex', alignItems: 'center', gap: 1, fontSize: '1rem', color: '#000' }}>
-                  <span style={{ fontSize: '1.2rem' }}>💡</span> Parenting tips
+                  <span style={{ fontSize: '1.2rem' }}></span> Parenting tips
                 </Typography>
                 <Typography variant="body2" sx={{ color: '#555', mb: 2, lineHeight: 1.5, fontSize: '0.9rem' }}>
-                  Fact-based information and research on children's health and safety online, with expert insights.
+                  Learn from reliable information and research about kids’ online habits, digital safety, and how AI can help protect them.
                 </Typography>
                 <Button color="primary" size="small" sx={{ textTransform: 'none', fontWeight: 600, p: 0, fontSize: '0.9rem' }}>
                   Read parenting tips
@@ -329,10 +328,10 @@ const HomePage = () => {
               </Box>
               <Box sx={{ p: 2.5, borderRight: '1px solid #f0f0f0' }}>
                 <Typography variant="subtitle2" sx={{ fontWeight: 700, mb: 1.5, display: 'flex', alignItems: 'center', gap: 1, fontSize: '1rem', color: '#000' }}>
-                  <span style={{ fontSize: '1.2rem' }}>✔️</span> Safety guides
+                  <span style={{ fontSize: '1.2rem' }}></span> Safety guides
                 </Typography>
                 <Typography variant="body2" sx={{ color: '#555', mb: 2, lineHeight: 1.5, fontSize: '0.9rem' }}>
-                  Summaries, ratings, warnings and recommendations about the apps and games parents need to know about.
+                  Quick summaries, ratings, and recommendations about the apps, games, and online content parents should keep an eye on.
                 </Typography>
                 <Button color="primary" size="small" sx={{ textTransform: 'none', fontWeight: 600, p: 0, fontSize: '0.9rem' }}>
                   Read our guides and reviews
@@ -340,10 +339,10 @@ const HomePage = () => {
               </Box>
               <Box sx={{ p: 2.5 }}>
                 <Typography variant="subtitle2" sx={{ fontWeight: 700, mb: 1.5, display: 'flex', alignItems: 'center', gap: 1, fontSize: '1rem', color: '#000' }}>
-                  <span style={{ fontSize: '1.2rem' }}>👨‍👩‍👧</span> Family stories
+                  <span style={{ fontSize: '1.2rem' }}></span> Family stories
                 </Typography>
                 <Typography variant="body2" sx={{ color: '#555', mb: 2, lineHeight: 1.5, fontSize: '0.9rem' }}>
-                  "Parental Control gives me the peace of mind that I have been looking for to ensure my kids are safe"
+                  “This AI Parental Control app gives me the peace of mind I’ve been looking for. I know my kids are safe when they’re online.”
                 </Typography>
                 <Button color="primary" size="small" sx={{ textTransform: 'none', fontWeight: 600, p: 0, fontSize: '0.9rem' }}>
                   Read more family stories
@@ -360,22 +359,26 @@ const HomePage = () => {
           <Grid container spacing={4} alignItems="center">
             <Grid item xs={12} md={6}>
               <Typography variant="h2" sx={{ fontWeight: 900, mb: 3, fontSize: { xs: '2rem', md: '3.75rem' }, lineHeight: 1.05 }}>
-                Parent Monitoring App
-                for Loving Protection
+                AI Parental Control for a Safer Digital World
               </Typography>
 
               <Typography variant="h6" sx={{ color: 'rgba(255,255,255,0.8)', mb: 4, fontSize: '1.05rem' }}>
-                You deserve a monitoring app for parental control that keeps up with tomorrow's technology. You deserve Parental Control.
+                Give your child the freedom to explore while keeping them safe. Our app watches the screen in real time and filters inappropriate content. It’s simple to use, always on, and built to give parents peace of mind.
               </Typography>
 
               <Box sx={{ display: 'flex', gap: 2, alignItems: 'center', flexWrap: 'wrap' }}>
-                <Button variant="contained" sx={{ bgcolor: '#ff6b6b', color: '#fff', px: 4, py: 1.5, borderRadius: 2, textTransform: 'none', fontWeight: 700 }}>
+                <Button
+                  variant="contained"
+                  // inline style to ensure it overrides any theme primary/blue defaults
+                  style={{ backgroundColor: '#EE791A', color: '#fff' }}
+                  sx={{ px: 4, py: 1.5, borderRadius: 2, textTransform: 'none', fontWeight: 700 }}
+                >
                   TRY NOW
                 </Button>
 
-                <Button variant="text" sx={{ color: '#ff6b6b', textTransform: 'none', fontWeight: 700 }}>
+                <Button variant="text" sx={{ color: '#EE791A', textTransform: 'none', fontWeight: 700 }}>
                   <Box sx={{ display: 'inline-flex', alignItems: 'center', gap: 1 }}>
-                    <Box sx={{ width: 38, height: 38, borderRadius: '50%', border: '2px solid rgba(255,107,107,0.25)', display: 'inline-flex', alignItems: 'center', justifyContent: 'center' }}>
+                    <Box sx={{ width: 38, height: 38, borderRadius: '50%', border: '2px solid #EE791A', display: 'inline-flex', alignItems: 'center', justifyContent: 'center' }}>
                       ▶
                     </Box>
                     See it in action
@@ -410,127 +413,7 @@ const HomePage = () => {
         </Container>
       </Box>
 
-      {/* Resources Section */}
-      <Container maxWidth="lg" sx={{ py: 8 }}>
-        <Grid container spacing={3}>
-          <Grid item xs={12} sm={6} md={3}>
-            <Box
-              sx={{
-                p: 3,
-                borderRadius: 2,
-                bgcolor: '#fff',
-                boxShadow: 1,
-                transition: 'all 0.3s ease',
-                cursor: 'pointer',
-                '&:hover': {
-                  boxShadow: 8,
-                  transform: 'translateY(-4px)',
-                },
-              }}
-            >
-              <Typography variant="h6" sx={{ fontWeight: 800, mb: 2, display: 'flex', alignItems: 'center', gap: 1 }}>
-                📋 Product tips
-              </Typography>
-              <Typography variant="body2" sx={{ color: '#666', mb: 3, lineHeight: 1.6 }}>
-                The latest product updates and features plus handy how-tos to help you get the most out of Parental Control.
-              </Typography>
-              <Button color="primary" sx={{ textTransform: 'none', fontWeight: 600, p: 0 }}>
-                Read product tips
-              </Button>
-            </Box>
-          </Grid>
-
-          <Grid item xs={12} sm={6} md={3}>
-            <Box
-              sx={{
-                p: 3,
-                borderRadius: 2,
-                bgcolor: '#fff',
-                boxShadow: 1,
-                borderTop: '4px solid #25a08b',
-                transition: 'all 0.3s ease',
-                cursor: 'pointer',
-                '&:hover': {
-                  boxShadow: 8,
-                  transform: 'translateY(-4px)',
-                },
-              }}
-            >
-              <Typography variant="h6" sx={{ fontWeight: 800, mb: 2, display: 'flex', alignItems: 'center', gap: 1 }}>
-                💡 Parenting tips
-              </Typography>
-              <Typography variant="body2" sx={{ color: '#666', mb: 3, lineHeight: 1.6 }}>
-                Fact-based information and research on children's health and safety online, with expert insights.
-              </Typography>
-              <Button color="primary" sx={{ textTransform: 'none', fontWeight: 600, p: 0 }}>
-                Read parenting tips
-              </Button>
-            </Box>
-          </Grid>
-
-          <Grid item xs={12} sm={6} md={3}>
-            <Box
-              sx={{
-                p: 3,
-                borderRadius: 2,
-                bgcolor: '#fff',
-                boxShadow: 1,
-                transition: 'all 0.3s ease',
-                cursor: 'pointer',
-                '&:hover': {
-                  boxShadow: 8,
-                  transform: 'translateY(-4px)',
-                },
-              }}
-            >
-              <Typography variant="h6" sx={{ fontWeight: 800, mb: 2, display: 'flex', alignItems: 'center', gap: 1 }}>
-                ✔️ Safety guides
-              </Typography>
-              <Typography variant="body2" sx={{ color: '#666', mb: 3, lineHeight: 1.6 }}>
-                Summaries, ratings, warnings and recommendations about the apps and games parents need to know about.
-              </Typography>
-              <Button color="primary" sx={{ textTransform: 'none', fontWeight: 600, p: 0 }}>
-                Read our guides and reviews
-              </Button>
-            </Box>
-          </Grid>
-
-          <Grid item xs={12} sm={6} md={3}>
-            <Box
-              sx={{
-                p: 3,
-                borderRadius: 2,
-                bgcolor: '#fff',
-                boxShadow: 1,
-                transition: 'all 0.3s ease',
-                cursor: 'pointer',
-                '&:hover': {
-                  boxShadow: 8,
-                  transform: 'translateY(-4px)',
-                },
-              }}
-            >
-              <Typography variant="h6" sx={{ fontWeight: 800, mb: 2 }}>
-                👨‍👩‍👧 Family stories
-              </Typography>
-              <Box sx={{ display: 'flex', gap: 2, mb: 3 }}>
-                <Avatar sx={{ width: 48, height: 48, bgcolor: '#a8d5ba', flexShrink: 0 }}>A</Avatar>
-                <Box>
-                  <Typography variant="body2" sx={{ fontStyle: 'italic', color: '#666', mb: 1 }}>
-                    "Parental Control gives me the peace of mind that I have been looking for to ensure my kids are safe"
-                  </Typography>
-                  <Typography variant="caption" sx={{ fontWeight: 600, color: '#000' }}>
-                    Allison, mom of two
-                  </Typography>
-                </Box>
-              </Box>
-              <Button color="primary" sx={{ textTransform: 'none', fontWeight: 600, p: 0 }}>
-                Read more family stories
-              </Button>
-            </Box>
-          </Grid>
-        </Grid>
-      </Container>
+      {/* Resources section removed */}
     </Box>
   );
 };
