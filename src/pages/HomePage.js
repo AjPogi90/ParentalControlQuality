@@ -153,7 +153,7 @@ const HomePage = () => {
             <Box
               component="img"
               src="/HeaderLogo.png"
-              alt="Parental Control"
+              alt="AegistNet"
               sx={{ height: { xs: 28, sm: 36 }, display: 'block' }}
               onClick={() => navigate('/')}
               role="button"
@@ -172,6 +172,7 @@ const HomePage = () => {
               '&:hover': { bgcolor: 'transparent' },
               borderBottom: productOpen ? '3px solid #ffa66bff' : 'none',
               pb: productOpen ? '6px' : 0,
+              display: { xs: 'none', md: 'block' },
             }}
           >
             Product
@@ -192,6 +193,7 @@ const HomePage = () => {
               '&:hover': { bgcolor: 'transparent' },
               borderBottom: learnOpen ? '3px solid #c48510ff' : 'none',
               pb: learnOpen ? '6px' : 0,
+              display: { xs: 'none', md: 'block' },
             }}
           >
             Learn
@@ -210,6 +212,7 @@ const HomePage = () => {
               '&:hover': { bgcolor: 'transparent' },
               borderBottom: supportOpen ? '3px solid #c05905ff' : 'none',
               pb: supportOpen ? '6px' : 0,
+              display: { xs: 'none', md: 'block' },
             }}
           >
             Support
@@ -266,7 +269,7 @@ const HomePage = () => {
                   <span style={{ fontSize: '1.2rem' }}></span> Features
                 </Typography>
                 <Typography variant="body2" sx={{ color: '#555', mb: 2, lineHeight: 1.5, fontSize: '0.9rem' }}>
-                 Lock apps when you need to, block inappropriate content automatically, track your child’s location, and review their activity in a way that fits your family’s routine.
+                  Lock apps when you need to, block inappropriate content automatically, track your child’s location, and review their activity in a way that fits your family’s routine.
                 </Typography>
                 <Button color="primary" size="small" sx={{ textTransform: 'none', fontWeight: 600, p: 0, fontSize: '0.9rem' }}>
                   View all features
@@ -288,7 +291,7 @@ const HomePage = () => {
                   <span style={{ fontSize: '1.2rem' }}></span> Downloads
                 </Typography>
                 <Typography variant="body2" sx={{ color: '#555', mb: 2, lineHeight: 1.5, fontSize: '0.9rem' }}>
-                  Available for Android 9.0+ devices. The app uses real-time screen analysis to monitor and filter harmful content as it appears. You can install it on your child’s phone or tablet 
+                  Available for Android 9.0+ devices. The app uses real-time screen analysis to monitor and filter harmful content as it appears. You can install it on your child’s phone or tablet
                 </Typography>
                 <Button color="primary" size="small" sx={{ textTransform: 'none', fontWeight: 600, p: 0, fontSize: '0.9rem' }}>
                   Go to downloads
@@ -309,7 +312,7 @@ const HomePage = () => {
                   <span style={{ fontSize: '1.2rem' }}></span> Product tips
                 </Typography>
                 <Typography variant="body2" sx={{ color: '#555', mb: 2, lineHeight: 1.5, fontSize: '0.9rem' }}>
-                  Get the latest updates, new features, and simple guides that help you make the most of your AI Parental Control app.
+                  Get the latest updates, new features, and simple guides that help you make the most of your AegistNet app.
                 </Typography>
                 <Button color="primary" size="small" sx={{ textTransform: 'none', fontWeight: 600, p: 0, fontSize: '0.9rem' }}>
                   Read product tips
@@ -342,7 +345,7 @@ const HomePage = () => {
                   <span style={{ fontSize: '1.2rem' }}></span> Family stories
                 </Typography>
                 <Typography variant="body2" sx={{ color: '#555', mb: 2, lineHeight: 1.5, fontSize: '0.9rem' }}>
-                  “This AI Parental Control app gives me the peace of mind I’ve been looking for. I know my kids are safe when they’re online.”
+                  “AegistNet gives me the peace of mind I’ve been looking for. I know my kids are safe when they’re online.”
                 </Typography>
                 <Button color="primary" size="small" sx={{ textTransform: 'none', fontWeight: 600, p: 0, fontSize: '0.9rem' }}>
                   Read more family stories
@@ -359,7 +362,7 @@ const HomePage = () => {
           <Grid container spacing={4} alignItems="center">
             <Grid item xs={12} md={6}>
               <Typography variant="h2" sx={{ fontWeight: 900, mb: 3, fontSize: { xs: '2rem', md: '3.75rem' }, lineHeight: 1.05 }}>
-                AI Parental Control for a Safer Digital World
+                AegistNet: AI Parental Control for a Safer Digital World
               </Typography>
 
               <Typography variant="h6" sx={{ color: 'rgba(255,255,255,0.8)', mb: 4, fontSize: '1.05rem' }}>
@@ -396,7 +399,7 @@ const HomePage = () => {
                   <Box
                     component="img"
                     src="/hero-illustration.png.png"
-                    alt="Parental Control Hero"
+                    alt="AegistNet Hero"
                     sx={{
                       width: '100%',
                       height: '100%',

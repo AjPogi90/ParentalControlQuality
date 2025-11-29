@@ -7,79 +7,153 @@ import {
   Button,
   Box,
   Chip,
-  Stack,
+  Avatar,
+  Badge,
 } from '@mui/material';
-import { format } from 'date-fns';
-import { isOnline as isOnlineHelper, formatTimestamp } from '../utils/constants';
+import PersonIcon from '@mui/icons-material/Person';
+import FiberManualRecordIcon from '@mui/icons-material/FiberManualRecord';
+import { formatDistanceToNow } from 'date-fns';
+import { isOnline as isOnlineHelper } from '../utils/constants';
+import { useTheme } from '../contexts/ThemeContext';
 
 const ChildCard = ({ child, onViewDetails, onViewApps, onViewLocation }) => {
+  const { colors } = useTheme();
   const isOnline = isOnlineHelper(child.lastUpdated);
-  const lastUpdatedTime = child.lastUpdated ? formatTimestamp(child.lastUpdated) : 'Never';
+
+  // Calculate "last seen" in human-readable format
+  const getLastSeenText = () => {
+    if (!child.lastUpdated) return 'Never';
+
+    try {
+      const timestamp = typeof child.lastUpdated === 'number'
+        ? child.lastUpdated
+        : new Date(child.lastUpdated).getTime();
+
+      if (isOnline) {
+        return 'Active now';
+      }
+
+      return `Active ${formatDistanceToNow(new Date(timestamp), { addSuffix: true })}`;
+    } catch (e) {
+      return 'Unknown';
+    }
+  };
 
   return (
-    <Card sx={{ 
-      height: '100%', 
-      display: 'flex', 
-      flexDirection: 'column',
-      transition: 'transform 0.2s, box-shadow 0.2s',
-      '&:hover': {
-        transform: 'translateY(-4px)',
-        boxShadow: 4,
-      }
-    }}>
+    <Card
+      sx={{
+        height: '100%',
+        display: 'flex',
+        flexDirection: 'column',
+        transition: 'transform 0.2s, box-shadow 0.2s',
+        cursor: 'pointer',
+        bgcolor: colors.cardBg,
+        border: `1px solid ${colors.cardBorder}`,
+        color: colors.text,
+        '&:hover': {
+          transform: 'translateY(-4px)',
+          boxShadow: `0 8px 24px ${colors.hover}`,
+          borderColor: colors.primary,
+        },
+      }}
+      onClick={onViewDetails}
+      role="button"
+      tabIndex={0}
+      aria-label={`View details for ${child.name}`}
+    >
       <CardContent sx={{ flexGrow: 1 }}>
+        {/* Profile Section */}
         <Box display="flex" alignItems="center" gap={2} mb={2}>
-          <Box flex={1}>
-            <Typography variant="h6" sx={{ fontWeight: 600 }}>{child.name || 'Unknown Child'}</Typography>
+          <Badge
+            overlap="circular"
+            anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
+            badgeContent={
+              <Box
+                sx={{
+                  width: 14,
+                  height: 14,
+                  borderRadius: '50%',
+                  bgcolor: isOnline ? '#4caf50' : '#9e9e9e',
+                  border: `2px solid ${colors.cardBg}`,
+                }}
+              />
+            }
+          >
+            <Avatar
+              src={child.profilePicture || undefined}
+              sx={{
+                width: 56,
+                height: 56,
+                bgcolor: colors.primary,
+                fontSize: '1.5rem',
+              }}
+            >
+              {child.profilePicture ? null : (
+                child.name?.charAt(0).toUpperCase() || <PersonIcon />
+              )}
+            </Avatar>
+          </Badge>
+
+          <Box flex={1} minWidth={0}>
+            <Typography
+              variant="h6"
+              sx={{ fontWeight: 600, mb: 0.5, color: colors.text }}
+              noWrap
+            >
+              {child.name || 'Unknown Child'}
+            </Typography>
             <Chip
+              icon={<FiberManualRecordIcon sx={{ fontSize: 10 }} />}
               label={isOnline ? 'Online' : 'Offline'}
-              color={isOnline ? 'success' : 'default'}
               size="small"
-              variant="filled"
-              sx={{ fontWeight: 'bold' }}
+              sx={{
+                fontWeight: 600,
+                height: 20,
+                bgcolor: isOnline ? 'rgba(76,175,80,0.2)' : 'rgba(158,158,158,0.2)',
+                color: isOnline ? '#4caf50' : '#9e9e9e',
+                border: `1px solid ${isOnline ? '#4caf50' : '#9e9e9e'}`,
+                '& .MuiChip-icon': {
+                  ml: 0.5,
+                  color: isOnline ? '#4caf50' : '#9e9e9e',
+                },
+              }}
             />
           </Box>
         </Box>
 
-        <Typography variant="body2" color="text.secondary" mb={1} sx={{ wordBreak: 'break-all' }}>
+        {/* Details */}
+        <Typography
+          variant="body2"
+          sx={{ color: colors.textSecondary, mb: 1, wordBreak: 'break-word' }}
+          noWrap
+        >
           📧 {child.email || 'N/A'}
         </Typography>
 
-        <Typography variant="caption" color="text.secondary" sx={{ display: 'block' }}>
-          ⏱️ Last updated: {lastUpdatedTime}
+        <Typography variant="caption" sx={{ color: colors.textSecondary, display: 'block' }}>
+          {getLastSeenText()}
         </Typography>
-
-        {/* App deleted indicator removed per user request */}
       </CardContent>
 
-      <CardActions sx={{ flexDirection: 'column', gap: 1, pt: 0 }}>
-        <Stack direction="row" spacing={1} width="100%">
-          <Button
-            variant="contained"
-            size="small"
-            fullWidth
-            onClick={onViewDetails}
-            sx={{ fontWeight: 600 }}
-          >
-            Details
-          </Button>
-          <Button
-            variant="outlined"
-            size="small"
-            fullWidth
-            onClick={onViewApps}
-          >
-            Apps
-          </Button>
-        </Stack>
-        {/* Block / Unblock controls removed as requested */}
+      <CardActions sx={{ flexDirection: 'column', gap: 1, pt: 0, px: 2, pb: 2 }}>
         <Button
-          variant="outlined"
-          size="small"
+          variant="contained"
+          size="medium"
           fullWidth
-          onClick={onViewLocation}
+          onClick={(e) => {
+            e.stopPropagation();
+            onViewDetails();
+          }}
+          sx={{
+            fontWeight: 600,
+            bgcolor: colors.primary,
+            color: '#fff',
+            '&:hover': {
+              bgcolor: '#c05905ff',
+            }
+          }}
         >
-          Location
+          View Details
         </Button>
       </CardActions>
     </Card>

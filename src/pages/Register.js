@@ -55,12 +55,12 @@ const Register = () => {
 
   return (
     <Box sx={{ width: '100%', minHeight: '100vh', background: '#000', display: 'flex', alignItems: 'center', justifyContent: 'center', py: 6 }}>
-      <Box sx={{ p: 4, width: 520, maxWidth: '94%', borderRadius: 2, boxShadow: '0 12px 40px rgba(0,0,0,0.6)', bgcolor: '#0b0b0b', border: '1px solid rgba(255,255,255,0.04)', color: '#fff' }}>
+      <Box sx={{ p: { xs: 3, sm: 4 }, width: 520, maxWidth: '94%', borderRadius: 2, boxShadow: '0 12px 40px rgba(0,0,0,0.6)', bgcolor: '#0b0b0b', border: '1px solid rgba(255,255,255,0.04)', color: '#fff' }}>
         <Box sx={{ textAlign: 'center', mb: 2 }}>
           <Box component="img" src="/HeaderLogoImage.png" alt="logo" onError={(e) => { e.target.onerror = null; e.target.src = '/HeaderLogo.png'; }} sx={{ width: 140, mx: 'auto', display: 'block' }} />
         </Box>
 
-        <Typography variant="h5" align="center" mb={1} sx={{ fontWeight: '800', color: '#fff' }}>Create Parent Account</Typography>
+        <Typography variant="h5" align="center" mb={1} sx={{ fontWeight: '800', color: '#fff' }}>Create AegistNet Account</Typography>
 
         {error && <Alert severity="error" sx={{ mb: 2 }}>{error}</Alert>}
 

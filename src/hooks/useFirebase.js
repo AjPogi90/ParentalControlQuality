@@ -176,3 +176,19 @@ export const useParentProfile = (parentUid) => {
 
   return { profile, loading, error };
 };
+
+// Update content filters for a child
+export const updateContentFilters = async (childId, filters) => {
+  try {
+    const filtersRef = ref(database, `users/childs/${childId}/contentFilters`);
+    await update(filtersRef, {
+      ...filters,
+      updatedAt: Date.now(),
+    });
+    return { success: true };
+  } catch (error) {
+    console.error('Error updating content filters:', error);
+    return { success: false, error };
+  }
+};
+
