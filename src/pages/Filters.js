@@ -17,6 +17,9 @@ import {
     Chip,
 } from '@mui/material';
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
+import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
+import DangerousIcon from '@mui/icons-material/Dangerous';
+import SpeakerNotesOffIcon from '@mui/icons-material/SpeakerNotesOff';
 import { useAuth } from '../contexts/AuthContext';
 import { useTheme } from '../contexts/ThemeContext';
 import { useChildrenList, useChildData, updateContentFilters } from '../hooks/useFirebase';
@@ -25,7 +28,8 @@ const filterDefinitions = [
     {
         key: 'nudity',
         label: 'Nudity Filter',
-        icon: '🔞',
+        Icon: VisibilityOffIcon,
+        colorKey: 'error',
         description: 'Blocks inappropriate images, adult content, and explicit material',
         details:
             'Prevents access to websites and apps with nudity or sexually explicit content. Helps protect children from age-inappropriate material.',
@@ -33,7 +37,8 @@ const filterDefinitions = [
     {
         key: 'violence',
         label: 'Violence Filter',
-        icon: '⚔️',
+        Icon: DangerousIcon,
+        colorKey: 'error',
         description: 'Filters violent and graphic content',
         details:
             'Blocks access to violent imagery, graphic content, and age-inappropriate games or videos. Helps create a safer online environment.',
@@ -41,7 +46,8 @@ const filterDefinitions = [
     {
         key: 'harmfulText',
         label: 'Harmful Text Filter',
-        icon: '⚠️',
+        Icon: SpeakerNotesOffIcon,
+        colorKey: 'warning',
         description: 'Blocks offensive language, hate speech, and cyberbullying',
         details:
             'Filters offensive language, slurs, cyberbullying, and harmful text content. Protects children from toxic online interactions.',
@@ -107,7 +113,7 @@ const Filters = () => {
     }
 
     const selectedChild = children?.find((c) => c.id === selectedChildId);
-    const activeFiltersCount = Object.values(filters).filter(Boolean).length;
+    const activeFiltersCount = filterDefinitions.filter(def => filters[def.key]).length;
 
     return (
         <Box sx={{ minHeight: '100vh', bgcolor: colors.background, color: colors.text }}>
@@ -260,7 +266,7 @@ const Filters = () => {
                                                 p: 3,
                                                 borderRadius: 2,
                                                 border: 2,
-                                                borderColor: filters[filter.key] ? '#4caf50' : colors.cardBorder,
+                                                borderColor: filters[filter.key] ? colors.success : colors.cardBorder,
                                                 bgcolor: colors.cardBg,
                                                 transition: 'all 0.3s',
                                                 '&:hover': {
@@ -278,7 +284,7 @@ const Filters = () => {
                                             >
                                                 <Box sx={{ flexGrow: 1 }}>
                                                     <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, mb: 1 }}>
-                                                        <Typography variant="h5">{filter.icon}</Typography>
+                                                        <filter.Icon sx={{ fontSize: 32, color: colors[filter.colorKey] }} />
                                                         <Typography variant="h6" sx={{ fontWeight: 600, color: colors.text }}>
                                                             {filter.label}
                                                         </Typography>
@@ -288,9 +294,9 @@ const Filters = () => {
                                                                 size="small"
                                                                 sx={{
                                                                     fontWeight: 600,
-                                                                    bgcolor: 'rgba(76,175,80,0.2)',
-                                                                    color: '#4caf50',
-                                                                    border: '1px solid #4caf50',
+                                                                    bgcolor: `${colors.success}22`,
+                                                                    color: colors.success,
+                                                                    border: `1px solid ${colors.success}`,
                                                                 }}
                                                             />
                                                         )}
@@ -316,10 +322,10 @@ const Filters = () => {
                                                     disabled={saveLoading}
                                                     sx={{
                                                         '& .MuiSwitch-switchBase.Mui-checked': {
-                                                            color: '#4caf50',
+                                                            color: colors.success,
                                                         },
                                                         '& .MuiSwitch-switchBase.Mui-checked + .MuiSwitch-track': {
-                                                            bgcolor: '#4caf50',
+                                                            bgcolor: colors.success,
                                                         },
                                                     }}
                                                 />

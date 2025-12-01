@@ -150,7 +150,7 @@ const AddChildDeviceModal = ({ open, onClose }) => {
                                             sx={{ borderRadius: 2, bgcolor: 'rgba(76,175,80,0.08)', color: colors.text }}
                                         >
                                             <Typography variant="body2">
-                                                Use the same email and password you used to create this parent account
+                                                Sign up for child account and enter parent email to pair or link, then you can login the child account on device
                                             </Typography>
                                         </Alert>
                                         <Box sx={{ mt: 2, p: 2, bgcolor: colors.inputBg, borderRadius: 2, border: `1px solid ${colors.divider}` }}>

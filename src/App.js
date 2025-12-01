@@ -12,6 +12,7 @@ import Apps from './pages/Apps';
 import Location from './pages/Location';
 import Filters from './pages/Filters';
 import Settings from './pages/Settings';
+import Help from './pages/Help';
 import ProtectedRoute from './components/ProtectedRoute';
 import HomePage from './pages/HomePage';
 import Sidebar from './components/Sidebar';
@@ -126,6 +127,16 @@ function App() {
                 <ProtectedRoute>
                   <AppLayout>
                     <Settings />
+                  </AppLayout>
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/help"
+              element={
+                <ProtectedRoute>
+                  <AppLayout>
+                    <Help />
                   </AppLayout>
                 </ProtectedRoute>
               }

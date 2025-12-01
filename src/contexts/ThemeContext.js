@@ -38,6 +38,9 @@ export const ThemeProvider = ({ children }) => {
             inputBg: '#ffffff',
             divider: 'rgba(0,0,0,0.12)',
             hover: 'rgba(0,0,0,0.04)',
+            error: '#d32f2f',
+            warning: '#ed6c02',
+            success: '#2e7d32',
         },
         dark: {
             background: '#000',
@@ -49,6 +52,9 @@ export const ThemeProvider = ({ children }) => {
             inputBg: '#0f0f0f',
             divider: 'rgba(255,255,255,0.04)',
             hover: 'rgba(255,255,255,0.04)',
+            error: '#f44336',
+            warning: '#ffa726',
+            success: '#66bb6a',
         },
     };
 
