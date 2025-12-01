@@ -23,6 +23,7 @@ import HelpOutlineIcon from '@mui/icons-material/HelpOutline';
 import LogoutIcon from '@mui/icons-material/Logout';
 import PersonIcon from '@mui/icons-material/Person';
 import { useAuth } from '../contexts/AuthContext';
+import { useTheme } from '../contexts/ThemeContext';
 import { signOut } from 'firebase/auth';
 import { auth } from '../config/firebase';
 import ConfirmationModal from './ConfirmationModal';
@@ -33,6 +34,7 @@ const Sidebar = ({ isMobile = false, open = true, onClose = () => { } }) => {
   const navigate = useNavigate();
   const location = useLocation();
   const { user } = useAuth();
+  const { colors } = useTheme();
   const [logoutModalOpen, setLogoutModalOpen] = useState(false);
 
   const menuItems = [
@@ -77,7 +79,7 @@ const Sidebar = ({ isMobile = false, open = true, onClose = () => { } }) => {
         height: '100%',
         display: 'flex',
         flexDirection: 'column',
-        bgcolor: 'background.paper',
+        bgcolor: colors.cardBg,
       }}
     >
       {/* Logo/Header */}
@@ -86,17 +88,17 @@ const Sidebar = ({ isMobile = false, open = true, onClose = () => { } }) => {
           variant="h5"
           sx={{
             fontWeight: 700,
-            color: 'primary.main', // Solid color for WCAG compliance
+            color: colors.primary,
           }}
         >
           AegistNet
         </Typography>
-        <Typography variant="caption" color="text.secondary">
+        <Typography variant="caption" sx={{ color: colors.textSecondary }}>
           Parental Control
         </Typography>
       </Box>
 
-      <Divider />
+      <Divider sx={{ borderColor: colors.divider }} />
 
       {/* Main Navigation */}
       <List sx={{ flexGrow: 1, px: 2, py: 2 }}>
@@ -108,21 +110,25 @@ const Sidebar = ({ isMobile = false, open = true, onClose = () => { } }) => {
             sx={{
               borderRadius: 2,
               mb: 0.5,
+              color: colors.text,
+              '&:hover': {
+                bgcolor: colors.hover,
+              },
               '&.Mui-selected': {
-                bgcolor: 'primary.main',
-                color: 'white',
+                bgcolor: colors.primary,
+                color: '#fff',
                 '&:hover': {
-                  bgcolor: 'primary.dark',
+                  bgcolor: '#c05905ff',
                 },
                 '& .MuiListItemIcon-root': {
-                  color: 'white',
+                  color: '#fff',
                 },
               },
             }}
           >
             <ListItemIcon
               sx={{
-                color: isActive(item.path) ? 'white' : 'text.secondary',
+                color: isActive(item.path) ? '#fff' : colors.textSecondary,
                 minWidth: 40,
               }}
             >
@@ -139,7 +145,7 @@ const Sidebar = ({ isMobile = false, open = true, onClose = () => { } }) => {
         ))}
       </List>
 
-      <Divider />
+      <Divider sx={{ borderColor: colors.divider }} />
 
       {/* Bottom Navigation */}
       <List sx={{ px: 2, py: 1 }}>
@@ -151,12 +157,16 @@ const Sidebar = ({ isMobile = false, open = true, onClose = () => { } }) => {
             sx={{
               borderRadius: 2,
               mb: 0.5,
+              color: colors.text,
+              '&:hover': {
+                bgcolor: colors.hover,
+              },
               '&.Mui-selected': {
-                bgcolor: 'action.selected',
+                bgcolor: colors.hover,
               },
             }}
           >
-            <ListItemIcon sx={{ minWidth: 40, color: 'text.secondary' }}>
+            <ListItemIcon sx={{ minWidth: 40, color: colors.textSecondary }}>
               {item.icon}
             </ListItemIcon>
             <ListItemText
@@ -167,7 +177,7 @@ const Sidebar = ({ isMobile = false, open = true, onClose = () => { } }) => {
         ))}
       </List>
 
-      <Divider />
+      <Divider sx={{ borderColor: colors.divider }} />
 
       {/* User Profile Section */}
       <Box sx={{ p: 2 }}>
@@ -177,18 +187,18 @@ const Sidebar = ({ isMobile = false, open = true, onClose = () => { } }) => {
             alignItems: 'center',
             gap: 1.5,
             p: 1.5,
-            bgcolor: 'action.hover',
+            bgcolor: colors.hover,
             borderRadius: 2,
           }}
         >
-          <Avatar sx={{ width: 36, height: 36, bgcolor: 'primary.main' }}>
-            <PersonIcon fontSize="small" />
+          <Avatar sx={{ width: 36, height: 36, bgcolor: colors.primary }}>
+            <PersonIcon fontSize="small" sx={{ color: '#fff' }} />
           </Avatar>
           <Box sx={{ flexGrow: 1, minWidth: 0 }}>
-            <Typography variant="body2" sx={{ fontWeight: 600 }} noWrap>
+            <Typography variant="body2" sx={{ fontWeight: 600, color: colors.text }} noWrap>
               {user?.email?.split('@')[0] || 'Parent'}
             </Typography>
-            <Typography variant="caption" color="text.secondary" noWrap>
+            <Typography variant="caption" sx={{ color: colors.textSecondary }} noWrap>
               {user?.email}
             </Typography>
           </Box>
@@ -196,7 +206,7 @@ const Sidebar = ({ isMobile = false, open = true, onClose = () => { } }) => {
             <IconButton
               size="small"
               onClick={handleLogoutClick}
-              sx={{ color: 'text.secondary' }}
+              sx={{ color: colors.textSecondary }}
             >
               <LogoutIcon fontSize="small" />
             </IconButton>
@@ -247,8 +257,8 @@ const Sidebar = ({ isMobile = false, open = true, onClose = () => { } }) => {
         '& .MuiDrawer-paper': {
           width: DRAWER_WIDTH,
           boxSizing: 'border-box',
-          borderRight: '1px solid',
-          borderColor: 'divider',
+          borderRight: `1px solid ${colors.cardBorder}`,
+          bgcolor: colors.cardBg,
         },
       }}
     >

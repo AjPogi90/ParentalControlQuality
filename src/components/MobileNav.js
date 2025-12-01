@@ -7,9 +7,11 @@ import {
 } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 import Sidebar from './Sidebar';
+import { useTheme } from '../contexts/ThemeContext';
 
 const MobileNav = () => {
     const [mobileOpen, setMobileOpen] = useState(false);
+    const { colors } = useTheme();
 
     const handleDrawerToggle = () => {
         setMobileOpen(!mobileOpen);
@@ -22,9 +24,10 @@ const MobileNav = () => {
                 position="fixed"
                 sx={{
                     display: { xs: 'block', md: 'none' },
-                    bgcolor: 'background.paper',
-                    color: 'text.primary',
+                    bgcolor: colors.cardBg,
+                    color: colors.text,
                     boxShadow: 1,
+                    borderBottom: `1px solid ${colors.divider}`,
                 }}
             >
                 <Toolbar>
@@ -36,8 +39,9 @@ const MobileNav = () => {
                         size="large" // Ensures 48px+ touch target
                         sx={{
                             mr: 2,
+                            color: colors.text,
                             '&:active': {
-                                bgcolor: 'action.selected', // Visual tap feedback
+                                bgcolor: colors.hover, // Visual tap feedback
                             }
                         }}
                     >
@@ -49,7 +53,7 @@ const MobileNav = () => {
                         component="div"
                         sx={{
                             fontWeight: 700,
-                            color: 'primary.main', // Solid color for WCAG compliance
+                            color: colors.primary, // Solid color for WCAG compliance
                         }}
                     >
                         AegistNet
@@ -63,9 +67,6 @@ const MobileNav = () => {
                 open={mobileOpen}
                 onClose={handleDrawerToggle}
             />
-
-            {/* Spacer for fixed AppBar on mobile */}
-            <Toolbar sx={{ display: { xs: 'block', md: 'none' } }} />
         </>
     );
 };

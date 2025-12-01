@@ -217,11 +217,11 @@ const Dashboard = () => {
                 sx={{
                   py: 1.5,
                   justifyContent: 'space-between',
-                  borderColor: 'rgba(255,255,255,0.2)',
-                  color: '#fff',
+                  borderColor: colors.divider,
+                  color: colors.text,
                   '&:hover': {
-                    borderColor: '#EE791A',
-                    bgcolor: 'rgba(238,121,26,0.08)',
+                    borderColor: colors.primary,
+                    bgcolor: colors.hover,
                   }
                 }}
               >
@@ -238,11 +238,11 @@ const Dashboard = () => {
                 sx={{
                   py: 1.5,
                   justifyContent: 'space-between',
-                  borderColor: 'rgba(255,255,255,0.2)',
-                  color: '#fff',
+                  borderColor: colors.divider,
+                  color: colors.text,
                   '&:hover': {
-                    borderColor: '#EE791A',
-                    bgcolor: 'rgba(238,121,26,0.08)',
+                    borderColor: colors.primary,
+                    bgcolor: colors.hover,
                   }
                 }}
               >

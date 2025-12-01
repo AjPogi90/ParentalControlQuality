@@ -35,6 +35,7 @@ const Apps = () => {
     const [showConfirmUnblockAll, setShowConfirmUnblockAll] = useState(false);
     const [actionLoading, setActionLoading] = useState(false);
     const [successMessage, setSuccessMessage] = useState('');
+    const [showOnlyBlocked, setShowOnlyBlocked] = useState(false);
 
     const { data: childData, loading: loadingChild } = useChildData(selectedChildId);
 
@@ -56,13 +57,21 @@ const Apps = () => {
     }, [childData]);
 
     const filteredApps = useMemo(() => {
+        let apps = appsArray;
+
+        // Filter by blocked status if enabled
+        if (showOnlyBlocked) {
+            apps = apps.filter((app) => app.blocked);
+        }
+
+        // Filter by search term
         const query = searchTerm.toLowerCase().trim();
-        if (!query) return appsArray;
-        return appsArray.filter((app) =>
+        if (!query) return apps;
+        return apps.filter((app) =>
             app.appName?.toLowerCase().includes(query) ||
             app.packageName?.toLowerCase().includes(query)
         );
-    }, [appsArray, searchTerm]);
+    }, [appsArray, searchTerm, showOnlyBlocked]);
 
     const blockedApps = filteredApps.filter((app) => app.blocked);
 
@@ -220,19 +229,21 @@ const Apps = () => {
                                     }}
                                 />
                                 <Button
-                                    variant="outlined"
-                                    startIcon={<AddIcon />}
+                                    variant={showOnlyBlocked ? "contained" : "outlined"}
+                                    startIcon={<BlockIcon />}
+                                    onClick={() => setShowOnlyBlocked(!showOnlyBlocked)}
                                     sx={{
                                         whiteSpace: 'nowrap',
-                                        borderColor: colors.divider,
-                                        color: colors.text,
+                                        borderColor: showOnlyBlocked ? colors.primary : colors.divider,
+                                        bgcolor: showOnlyBlocked ? colors.primary : 'transparent',
+                                        color: showOnlyBlocked ? '#fff' : colors.text,
                                         '&:hover': {
                                             borderColor: colors.primary,
-                                            bgcolor: colors.hover,
+                                            bgcolor: showOnlyBlocked ? '#c05905ff' : colors.hover,
                                         }
                                     }}
                                 >
-                                    Add Blocked App
+                                    {showOnlyBlocked ? 'Show all apps' : 'View blocked apps'}
                                 </Button>
                                 <Button
                                     variant="outlined"
@@ -327,7 +338,7 @@ const Apps = () => {
                                                                     sx={{ fontWeight: 600, color: colors.text }}
                                                                     noWrap
                                                                 >
-                                                                    📱 {app.appName}
+                                                                    {app.appName}
                                                                 </Typography>
                                                                 <Typography
                                                                     variant="caption"

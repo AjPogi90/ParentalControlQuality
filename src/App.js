@@ -1,6 +1,6 @@
 import React from 'react';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
-import { Box } from '@mui/material';
+import { Box, Toolbar } from '@mui/material';
 import { AuthProvider } from './contexts/AuthContext';
 import { ThemeProvider } from './contexts/ThemeContext';
 import Login from './pages/Login';
@@ -37,6 +37,8 @@ function AppLayout({ children }) {
           width: { xs: '100%', md: 'calc(100% - 240px)' },
         }}
       >
+        {/* Spacer for fixed mobile AppBar */}
+        <Toolbar sx={{ display: { xs: 'block', md: 'none' } }} />
         {children}
       </Box>
 

@@ -204,6 +204,10 @@ const Filters = () => {
                                     </Tooltip>
                                 </Box>
                             }
+                            sx={{
+                                alignItems: 'center',
+                                m: 0,
+                            }}
                         />
                     </Box>
                 ) : (
