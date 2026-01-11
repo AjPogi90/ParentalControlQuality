@@ -18,39 +18,19 @@ import {
 } from '@mui/material';
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
-import DangerousIcon from '@mui/icons-material/Dangerous';
-import SpeakerNotesOffIcon from '@mui/icons-material/SpeakerNotesOff';
 import { useAuth } from '../contexts/AuthContext';
 import { useTheme } from '../contexts/ThemeContext';
 import { useChildrenList, useChildData, updateContentFilters } from '../hooks/useFirebase';
 
 const filterDefinitions = [
     {
-        key: 'nudity',
-        label: 'Nudity Filter',
+        key: 'explicit',
+        label: 'Explicit Content',
         Icon: VisibilityOffIcon,
         colorKey: 'error',
-        description: 'Blocks inappropriate images, adult content, and explicit material',
+        description: 'Blocks nudity, violence, and harmful text',
         details:
-            'Prevents access to websites and apps with nudity or sexually explicit content. Helps protect children from age-inappropriate material.',
-    },
-    {
-        key: 'violence',
-        label: 'Violence Filter',
-        Icon: DangerousIcon,
-        colorKey: 'error',
-        description: 'Filters violent and graphic content',
-        details:
-            'Blocks access to violent imagery, graphic content, and age-inappropriate games or videos. Helps create a safer online environment.',
-    },
-    {
-        key: 'harmfulText',
-        label: 'Harmful Text Filter',
-        Icon: SpeakerNotesOffIcon,
-        colorKey: 'warning',
-        description: 'Blocks offensive language, hate speech, and cyberbullying',
-        details:
-            'Filters offensive language, slurs, cyberbullying, and harmful text content. Protects children from toxic online interactions.',
+            'Prevents access to websites and apps with nudity, violence, or offensive language. Helps create a safer online environment.',
     },
 ];
 
@@ -78,11 +58,20 @@ const Filters = () => {
         harmfulText: false,
     };
 
+    // Calculate if protection is active (if ANY filter is on, we show as active)
+    const isExplicitActive = !!(filters.nudity || filters.violence || filters.harmfulText);
+
     const handleFilterToggle = async (filterKey, newValue) => {
         if (!selectedChildId) return;
 
         setSaveLoading(true);
-        const updatedFilters = { ...filters, [filterKey]: newValue };
+        // Consolidate all filters to the single toggle value
+        const updatedFilters = { 
+            ...filters, 
+            nudity: newValue,
+            violence: newValue,
+            harmfulText: newValue
+        };
 
         if (applyToAll && children) {
             // Apply to all children
@@ -113,7 +102,6 @@ const Filters = () => {
     }
 
     const selectedChild = children?.find((c) => c.id === selectedChildId);
-    const activeFiltersCount = filterDefinitions.filter(def => filters[def.key]).length;
 
     return (
         <Box sx={{ minHeight: '100vh', bgcolor: colors.background, color: colors.text }}>
@@ -130,8 +118,7 @@ const Filters = () => {
                     <Alert severity="info" sx={{ borderRadius: 2, bgcolor: 'rgba(33,150,243,0.08)', color: colors.text }}>
                         <Typography variant="body2">
                             <strong>How it works:</strong> Content filters work on the child's device to
-                            monitor and block harmful content in real-time. Changes take effect
-                            immediately on connected devices.
+                            monitor and block harmful content in real-time. The "Explicit Content" filter consolidates protection against nudity, violence, and harmful text.
                         </Typography>
                     </Alert>
                 </Box>
@@ -248,10 +235,10 @@ const Filters = () => {
                                         </Box>
                                         <Box sx={{ textAlign: 'right' }}>
                                             <Typography variant="h3" sx={{ fontWeight: 700 }}>
-                                                {activeFiltersCount}/3
+                                                {isExplicitActive ? 'Active' : 'Disabled'}
                                             </Typography>
                                             <Typography variant="body2" sx={{ opacity: 0.9 }}>
-                                                Filters Active
+                                                Content Protection
                                             </Typography>
                                         </Box>
                                     </Box>
@@ -266,7 +253,7 @@ const Filters = () => {
                                                 p: 3,
                                                 borderRadius: 2,
                                                 border: 2,
-                                                borderColor: filters[filter.key] ? colors.success : colors.cardBorder,
+                                                borderColor: isExplicitActive ? colors.success : colors.cardBorder,
                                                 bgcolor: colors.cardBg,
                                                 transition: 'all 0.3s',
                                                 '&:hover': {
@@ -288,7 +275,7 @@ const Filters = () => {
                                                         <Typography variant="h6" sx={{ fontWeight: 600, color: colors.text }}>
                                                             {filter.label}
                                                         </Typography>
-                                                        {filters[filter.key] && (
+                                                        {isExplicitActive && (
                                                             <Chip
                                                                 label="Active"
                                                                 size="small"
@@ -317,7 +304,7 @@ const Filters = () => {
                                                 </Box>
 
                                                 <Switch
-                                                    checked={filters[filter.key] || false}
+                                                    checked={isExplicitActive}
                                                     onChange={(e) => handleFilterToggle(filter.key, e.target.checked)}
                                                     disabled={saveLoading}
                                                     sx={{
