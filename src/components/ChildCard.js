@@ -16,7 +16,7 @@ import { formatDistanceToNow } from 'date-fns';
 import { isOnline as isOnlineHelper } from '../utils/constants';
 import { useTheme } from '../contexts/ThemeContext';
 
-const ChildCard = ({ child, onViewDetails, onViewApps, onViewLocation }) => {
+const ChildCard = ({ child, onViewDetails, onViewApps }) => {
   const { colors } = useTheme();
   const isOnline = isOnlineHelper(child.lastUpdated);
 

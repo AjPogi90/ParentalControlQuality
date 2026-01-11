@@ -16,7 +16,6 @@ import {
 import DashboardIcon from '@mui/icons-material/Dashboard';
 import PeopleIcon from '@mui/icons-material/People';
 import AppsIcon from '@mui/icons-material/Apps';
-import LocationOnIcon from '@mui/icons-material/LocationOn';
 import FilterListIcon from '@mui/icons-material/FilterList';
 import SettingsIcon from '@mui/icons-material/Settings';
 import HelpOutlineIcon from '@mui/icons-material/HelpOutline';
@@ -41,7 +40,6 @@ const Sidebar = ({ isMobile = false, open = true, onClose = () => { } }) => {
     { text: 'Dashboard', icon: <DashboardIcon />, path: '/dashboard' },
     { text: 'Children', icon: <PeopleIcon />, path: '/children' },
     { text: 'Apps', icon: <AppsIcon />, path: '/apps' },
-    { text: 'Location', icon: <LocationOnIcon />, path: '/location' },
     { text: 'Filters', icon: <FilterListIcon />, path: '/filters' },
   ];
 

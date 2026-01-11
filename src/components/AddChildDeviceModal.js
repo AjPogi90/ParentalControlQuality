@@ -202,7 +202,7 @@ const AddChildDeviceModal = ({ open, onClose }) => {
 
                 <Alert severity="success" sx={{ mt: 3, borderRadius: 2, bgcolor: 'rgba(76,175,80,0.08)', color: colors.text }}>
                     <AlertTitle sx={{ color: colors.text }}>What happens next?</AlertTitle>
-                    Once your child's device is connected, it will appear on your Children page within 30 seconds. You can then manage apps, view location, and enable content filters.
+                    Once your child's device is connected, it will appear on your Children page within 30 seconds. You can then manage apps and enable content filters.
                 </Alert>
 
                 <Box sx={{ mt: 3, p: 2, bgcolor: colors.inputBg, borderRadius: 2, border: `1px solid ${colors.divider}` }}>
